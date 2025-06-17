@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{5EEDB077-765D-48C1-9F35-69DF15AC8BCE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6C3E9BDC-A655-4EE8-850F-B1D66F0F74B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{C4A57491-72DB-4776-BEF9-A17722AB75FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{31484037-EA9E-492A-95EE-11E861F6D347}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{64BF0EFE-5509-466E-A27F-CAFD6B08F476}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4C1ECE9-A4AD-4FED-B0FC-7EA1636ACABF}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C4A57491-72DB-4776-BEF9-A17722AB75FC} = {5EEDB077-765D-48C1-9F35-69DF15AC8BCE}
+		{31484037-EA9E-492A-95EE-11E861F6D347} = {6C3E9BDC-A655-4EE8-850F-B1D66F0F74B6}
+		{64BF0EFE-5509-466E-A27F-CAFD6B08F476} = {31484037-EA9E-492A-95EE-11E861F6D347}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+EndGlobal
