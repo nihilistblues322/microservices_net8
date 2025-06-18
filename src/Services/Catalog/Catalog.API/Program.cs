@@ -25,9 +25,7 @@ builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetConnection
 var app = builder.Build();
 
 app.MapCarter();
-
 app.UseExceptionHandler(opts => { });
-
 app.UseHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
