@@ -18,6 +18,7 @@ public class StoreBasketEndpoint : ICarterModule
             .WithName("CreateProduct")
             .Produces<StoreBasketResponse>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound)
             .WithSummary("Store Product")
             .WithDescription("Store Product");
     }
