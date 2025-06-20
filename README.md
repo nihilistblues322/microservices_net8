@@ -1,8 +1,8 @@
-# ShoppingApp — Microservices Architecture on ASP.NET Core (.NET 8)
 
-Requirements
-Visual Studio 2022
-.NET 8 SDK
+
+Requirements ->
+Visual Studio 2022,
+.NET 8 SDK,
 Docker Desktop
 
 This system is a modular microservices-based application built on .NET 8 and C# 12, following clean architecture principles, modern communication patterns, and full Docker containerization.
