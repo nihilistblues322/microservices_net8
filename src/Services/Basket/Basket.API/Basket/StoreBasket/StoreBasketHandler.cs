@@ -18,8 +18,8 @@ public class StoreBasketCommandHandler(IBasketRepository repository)
 {
     public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
     {
-        await repository.StoreBasketAsync(command.Cart, cancellationToken);
+        var savedCart = await repository.StoreBasketAsync(command.Cart, cancellationToken);
         
-        return new StoreBasketResult(command.Cart.UserName);
+        return new StoreBasketResult(savedCart.UserName);
     }
 }
