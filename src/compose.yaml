@@ -46,6 +46,12 @@ services:
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
+      
+  discount.grpc:
+    image: discount.grpc
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.Grpc/Dockerfile
   
   catalogdb:
     image: postgres:15
@@ -84,3 +90,5 @@ volumes:
   postgres_catalog:
   postgres_basket:
  
+  
+
