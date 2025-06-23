@@ -5,20 +5,12 @@ services:
     container_name: catalogapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=MySecurePassword
     depends_on:
       - catalogdb
     ports:
       - "6000:8080"
-      - "6060:8081"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-      - ${USERPROFILE}/.aspnet/https:/https:ro
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
@@ -28,30 +20,31 @@ services:
     container_name: basketapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=MySecurePassword
     depends_on:
       - basketdb
+      - distributedcache
     ports:
       - "6001:8080"
-      - "6061:8081"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-      - ${USERPROFILE}/.aspnet/https:/https:ro
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
-      
+  
   discount.grpc:
     image: discount.grpc
+    container_name: discountgrpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__Database=Data Source=discountdb
+    ports:
+      - "6002:8080"
     build:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
+   
   
   catalogdb:
     image: postgres:15
@@ -89,6 +82,3 @@ services:
 volumes:
   postgres_catalog:
   postgres_basket:
- 
-  
-
