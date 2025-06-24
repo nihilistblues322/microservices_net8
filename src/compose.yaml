@@ -33,7 +33,7 @@ services:
       dockerfile: Services/Basket/Basket.API/Dockerfile
   
   discount.grpc:
-    image: discount.grpc
+    image: ${DOCKER_REGISTRY-}discountgrpc
     container_name: discountgrpc
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
