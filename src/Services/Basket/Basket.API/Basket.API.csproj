@@ -22,9 +22,16 @@
       <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="8.0.0" />
       <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.0" />
       <PackageReference Include="Carter" Version="8.0.0" />
+      <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
       <PackageReference Include="Marten" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.1" />
       <PackageReference Include="Scrutor" Version="6.1.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Protobuf Include="..\..\Discount\Discount.Grpc\Protos\discount.proto" GrpcServices="Client">
+            <Link>Protos\discount.proto</Link>
+        </Protobuf>
     </ItemGroup>
 
 </Project>

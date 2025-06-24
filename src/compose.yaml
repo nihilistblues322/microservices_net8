@@ -1,6 +1,6 @@
 ﻿version: '3.4'
 services:
-  catalog.api:
+  catalogapi:
     image: ${DOCKER_REGISTRY-}catalogapi
     container_name: catalogapi
     environment:
@@ -15,7 +15,7 @@ services:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
   
-  basket.api:
+  basketapi:
     image: ${DOCKER_REGISTRY-}basketapi
     container_name: basketapi
     environment:
@@ -23,16 +23,18 @@ services:
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
+      - ConnectionStrings__DiscountGrpcService=http://discountgrpc:8080
     depends_on:
       - basketdb
       - distributedcache
+      - discountgrpc
     ports:
       - "6001:8080"
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
   
-  discount.grpc:
+  discountgrpc:
     image: ${DOCKER_REGISTRY-}discountgrpc
     container_name: discountgrpc
     environment:
