@@ -62,7 +62,7 @@ public class Order : Aggregate<OrderId>
 
     public void Remove(ProductId productId)
     {
-        var orderItem = _orderItems.FirstOrDefault(x => x.ProductId == productId.Value);
+        var orderItem = _orderItems.FirstOrDefault(x => x.ProductId == productId);
         if (orderItem is not null) _orderItems.Remove(orderItem);
     }
 }
