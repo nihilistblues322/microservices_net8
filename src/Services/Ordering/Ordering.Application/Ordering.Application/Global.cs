@@ -8,3 +8,6 @@ global using Ordering.Application.Data;
 global using Ordering.Domain.ValueObjects;
 global using BuildingBlocks.Exceptions;
 global using Ordering.Application.Exceptions;
+global using MediatR;
+global using Ordering.Domain.Events;
+global using Microsoft.Extensions.Logging;
