@@ -11,3 +11,4 @@ global using Ordering.Application.Exceptions;
 global using MediatR;
 global using Ordering.Domain.Events;
 global using Microsoft.Extensions.Logging;
+global using Ordering.Application.Extensions;
