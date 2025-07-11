@@ -11,8 +11,7 @@ public class GetOrdersByNameHandler(IApplicationDbContext dbContext)
             .Where(o => o.OrderName.Value.Contains(query.Name))
             .OrderBy(o => o.OrderName)
             .ToListAsync(cancellationToken);
-
-
+        
         return new GetOrdersByNameResult(order.ToOrderDtoList());
     }
 }
