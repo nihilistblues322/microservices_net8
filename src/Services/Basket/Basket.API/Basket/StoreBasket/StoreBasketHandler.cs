@@ -33,7 +33,7 @@ public class StoreBasketCommandHandler(
         foreach (var item in cart.Items)
         {
             int discountAmount = 0;
-            
+
             try
             {
                 var discount = await proto.GetDiscountAsync(new GetDiscountRequest { ProductName = item.ProductName },
