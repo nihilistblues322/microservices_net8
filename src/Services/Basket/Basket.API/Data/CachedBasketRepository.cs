@@ -9,14 +9,13 @@ public class CachedBasketRepository(IBasketRepository repository, IDistributedCa
     {
         var cachedBasket = await cache.GetStringAsync(userName, cancellationToken);
         if (!string.IsNullOrEmpty(cachedBasket))
-            return JsonSerializer.Deserialize<ShoppingCart>(cachedBasket)!;
-        
+            return JsonSerializer.Deserialize<ShoppingCart>(cachedBasket);
+
         var basket = await repository.GetBasketAsync(userName, cancellationToken);
         if (basket != null)
         {
             await cache.SetStringAsync(userName, JsonSerializer.Serialize(basket), cancellationToken);
         }
-        await cache.SetStringAsync(userName, JsonSerializer.Serialize(basket), cancellationToken);
 
         return basket;
     }
@@ -39,6 +38,5 @@ public class CachedBasketRepository(IBasketRepository repository, IDistributedCa
         }
 
         return deleted;
-
     }
 }

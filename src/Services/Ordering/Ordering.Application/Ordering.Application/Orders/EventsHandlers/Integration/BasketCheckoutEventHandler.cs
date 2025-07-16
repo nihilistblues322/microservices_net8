@@ -1,5 +1,4 @@
-﻿
-namespace Ordering.Application.Orders.EventsHandlers.Integration;
+﻿namespace Ordering.Application.Orders.EventsHandlers.Integration;
 
 public class BasketCheckoutEventHandler(ISender sender, ILogger<BasketCheckoutEventHandler> logger)
     : IConsumer<BasketCheckoutEvent>
@@ -9,6 +8,7 @@ public class BasketCheckoutEventHandler(ISender sender, ILogger<BasketCheckoutEv
         logger.LogInformation("Integration event handled: {IntegrationEvent}", context.Message.GetType().Name);
 
         var command = MapToCreateOrderCommand(context.Message);
+        
         await sender.Send(command);
     }
 
@@ -22,14 +22,14 @@ public class BasketCheckoutEventHandler(ISender sender, ILogger<BasketCheckoutEv
             message.Country,
             message.State,
             message.ZipCode);
-        
+
         var paymentDto = new PaymentDto(
             message.CardName,
             message.CardNumber,
             message.Expiration,
             message.Cvv,
             message.PaymentMethod);
-        
+
         var orderId = Guid.NewGuid();
 
         var orderDto = new OrderDto(
