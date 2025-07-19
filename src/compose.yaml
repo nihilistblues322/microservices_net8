@@ -46,7 +46,7 @@ services:
     build:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
-   
+  
   
   catalogdb:
     image: postgres:15
@@ -89,7 +89,19 @@ services:
       - SA_PASSWORD=DefaultPassword123
     restart: always
     ports:
-      - "1433:1433"  
+      - "1433:1433"
+  
+  messagebroker:
+    image: rabbitmq:management
+    container_name: messaagebroker
+    hostname: ecommerce-mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
 volumes:
   postgres_catalog:
