@@ -1,8 +1,8 @@
 ﻿version: '3.4'
 services:
-  catalogapi:
-    image: ${DOCKER_REGISTRY-}catalogapi
-    container_name: catalogapi
+  catalog.api:
+    image: catalog.api
+    container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
@@ -15,28 +15,32 @@ services:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
   
-  basketapi:
-    image: ${DOCKER_REGISTRY-}basketapi
-    container_name: basketapi
+  basket.api:
+    image: basket.api
+    container_name: basket.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
       - ConnectionStrings__DiscountGrpcService=http://discountgrpc:8080
+      - MessageBroker__Host=amqp://ecommerce-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
     depends_on:
       - basketdb
       - distributedcache
-      - discountgrpc
+      - discount.grpc
+      - messagebroker
     ports:
       - "6001:8080"
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
   
-  discountgrpc:
-    image: ${DOCKER_REGISTRY-}discountgrpc
-    container_name: discountgrpc
+  discount.grpc:
+    image: discount.grpc
+    container_name: discount.grpc
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
@@ -46,6 +50,26 @@ services:
     build:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
+  
+  ordering.api:
+    image: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__Database=Server=orderdb;Database=OrderDb;User Id=sa;Password=DefaultPassword123;Encrypt=False;TrustServerCertificate=True
+      - MessageBroker__Host=amqp://ecommerce-mq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
+      - FeatureManagement__OrderFulfillment=false
+    depends_on:
+      - orderdb
+      - messagebroker
+    ports:
+      - "6003:8080"
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.API/Dockerfile
+  
   
   
   catalogdb:
@@ -105,4 +129,4 @@ services:
 
 volumes:
   postgres_catalog:
-  postgres_basket:
+  postgres_basket:  
